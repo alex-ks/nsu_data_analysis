@@ -41,7 +41,7 @@ namespace Lab1
             string[] classes;
             GetData( out data, out classes );
 
-            Console.WriteLine( data.Length );
+            Console.WriteLine( Euclid.Dist( data[0], data[1] ) );
         }
     }
 }

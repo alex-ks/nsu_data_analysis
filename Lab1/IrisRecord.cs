@@ -8,5 +8,9 @@ namespace Lab1
         public double PetalWidth { get; set; }
 
         public string Class { get; set; }
+
+        public const string Class1 = "Iris-setosa";
+        public const string Class2 = "Iris-versicolor";
+        public const string Class3 = "Iris-virginica";
     }
 }

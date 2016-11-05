@@ -3,16 +3,18 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using CsvHelper;
+using CsvHelper.Configuration;
 
 namespace Lab1
 {
     public class Program
     {
-        public static void GetData( out List<Vector> data, out List<string> classes )
+        public static void GetData( out Vector[] data, out string[] classes )
         {
             using ( var stream = new FileStream( "iris.csv", FileMode.Open ) )
             {
-                using ( var csvReader = new CsvReader( new StreamReader( stream ) ) )
+                using ( var csvReader = new CsvReader( new StreamReader( stream ), 
+                                                       new CsvConfiguration { HasHeaderRecord = false } ) )
                 {
                     var random = new Random( DateTime.Now.Millisecond );
 
@@ -25,17 +27,21 @@ namespace Lab1
                              select new Vector( row.SepalLength, 
                                                 row.SepalWidth,
                                                 row.PetalLength,
-                                                row.PetalWidth ) ).ToList( );
+                                                row.PetalWidth ) ).ToArray( );
 
                     classes = ( from row in rows
-                                select row.Class ).ToList( );
+                                select row.Class ).ToArray( );
                 }
             }
         }
 
-        public static void Main(string[] args)
+        public static void Main( )
         {
-            Console.WriteLine("Hello World!");
+            Vector[] data;
+            string[] classes;
+            GetData( out data, out classes );
+
+            Console.WriteLine( data.Length );
         }
     }
 }

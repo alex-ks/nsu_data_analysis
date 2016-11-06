@@ -11,7 +11,8 @@ namespace Lab1
     {
         public static void GetData( out Vector[] data, 
                                     out string[] classes, 
-                                    out Vector[] test )
+                                    out Vector[] test,
+                                    out string[] testAns )
         {
             using ( var stream = new FileStream( "iris.csv", FileMode.Open ) )
             {
@@ -38,12 +39,14 @@ namespace Lab1
                     var trainOfClass3 = sampleOfClass3.Take( 40 );
                     var testOfClass3 = sampleOfClass3.Reverse( ).Take( 10 );
 
-                    test = testOfClass1.Concat( testOfClass2 ).Concat( testOfClass3 )
-                        .Select( row => new Vector( row.SepalLength, 
-                                                    row.SepalWidth, 
-                                                    row.PetalLength, 
-                                                    row.PetalWidth ) )
-                        .ToArray( ); 
+                    test = ( from row in testOfClass1.Concat( testOfClass2 ).Concat( testOfClass3 )
+                             select new Vector( row.SepalLength, 
+                                                row.SepalWidth, 
+                                                row.PetalLength, 
+                                                row.PetalWidth ) ).ToArray( ); 
+
+                    testAns = ( from row in testOfClass1.Concat( testOfClass2 ).Concat( testOfClass3 )
+                                select row.Class ).ToArray( );
 
                     var train = trainOfClass1.Concat( trainOfClass2 ).Concat( trainOfClass3 );
 
@@ -62,9 +65,24 @@ namespace Lab1
         public static void Main( )
         {
             Vector[] data, test;
-            string[] classes;
-            GetData( out data, out classes, out test );
-            Console.WriteLine( Euclid.Dist( data[0], data[1] ) );
+            string[] classes, testAns;
+            GetData( out data, out classes, out test, out testAns );
+            
+            //var classifier = new KNearestClassifier( 1, data, classes );
+            var classifier = new KWeightedNearestClassifier( 10,
+                                                             KWeightedNearestClassifier.LinearWeight( 10 ), 
+                                                             data, 
+                                                             classes );
+
+            var ans = classifier.Classify( test );
+
+            int errorCount = 0;
+            for ( int i = 0; i < test.Length; ++i )
+            {
+                if ( ans[i] != testAns[i] )
+                { ++errorCount; }
+            }
+            Console.WriteLine( errorCount );
         }
     }
 }

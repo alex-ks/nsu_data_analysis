@@ -57,7 +57,7 @@ namespace Lab1
                 }
 
                 // To make class with max weight first
-                result.Add( classDists.OrderBy( pair => 1.0 / pair.Value ).First( ).Key );
+                result.Add( classDists.OrderByDescending( pair => pair.Value ).First( ).Key );
             }
 
             return result.ToArray( );

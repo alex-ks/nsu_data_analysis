@@ -78,10 +78,15 @@ namespace Lab1
             //                                              data,
             //                                              classes );
 
-            var classifier = new AdaptiveParzenClassifier( ParzenWindowClassifier.EpanechnikovKernel,
-                                                           0,
-                                                           data,
-                                                           classes );
+            // var classifier = new AdaptiveParzenClassifier( ParzenWindowClassifier.EpanechnikovKernel,
+            //                                                2,
+            //                                                data,
+            //                                                classes );
+
+            var classifier = new PotentialFunctionClassifier( 0.01,
+                                                              data,
+                                                              classes,
+                                                              data.Select( x => 0.35 ).ToArray( ) );
 
             var ans = classifier.Classify( test );
 

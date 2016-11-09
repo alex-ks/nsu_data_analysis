@@ -26,5 +26,26 @@ namespace Lab1
         {
             return a.X * b.X + a.Y * b.Y + a.Z * b.Z + a.T * b.T;
         }
+
+        public static bool operator ==( Vector a, Vector b )
+        {
+            return a.X == b.X && a.Y == b.Y && a.Z == b.Z && a.T == b.T;
+        }
+
+        public static bool operator !=( Vector a, Vector b )
+        {
+            return !( a == b );
+        }
+
+        // override object.Equals
+        public override bool Equals( object obj )
+        {
+            return obj is Vector && ( ( Vector )obj == this );
+        }
+
+        public override int GetHashCode( )
+        {
+            return X.GetHashCode( ) ^ Y.GetHashCode( ) ^ Z.GetHashCode( ) ^ T.GetHashCode( );
+        }
     }
 }

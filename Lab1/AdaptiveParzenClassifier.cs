@@ -20,7 +20,8 @@ namespace Lab1
 
         protected override double CalcNeighbourWeight( Vector u, Vector neighbour, int neighbourIndex )
         {
-            double h = Euclid.Dist( u, train[hSource] );
+            var sourceVec = train.OrderBy( x => Euclid.Dist( u, x ) ).ElementAt( hSource );
+            double h = Euclid.Dist( u, sourceVec );
             return kernelFunc( Euclid.Dist( u, neighbour ) / h );
         }
     }

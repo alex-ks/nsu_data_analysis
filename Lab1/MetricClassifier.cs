@@ -42,9 +42,11 @@ namespace Lab1
 
             var classes = answers.Distinct( ).ToList( );
 
+            var classDists = new Dictionary<string, double>( );
+
             foreach ( var u in sample )
             {
-                var classDists = new Dictionary<string, double>( );
+                classDists.Clear( );
 
                 foreach ( var c in classes )
                 { classDists.Add( c, 0 ); }  
@@ -61,6 +63,26 @@ namespace Lab1
             }
 
             return result.ToArray( );
+        }
+
+        public string Classify( Vector u )
+        {
+            var classes = answers.Distinct( ).ToList( );
+
+            var classDists = new Dictionary<string, double>( );
+
+            foreach ( var c in classes )
+            { classDists.Add( c, 0 ); }  
+
+            int i = 0;
+
+            foreach ( var v in GetSampleUnion( ).OrderBy( v => Euclid.Dist( u, v.Values ) ) )
+            {
+                classDists[v.Class] += CalcNeighbourWeight( u, v.Values, i++ );
+            }
+
+            // To make class with max weight first
+            return classDists.OrderByDescending( pair => pair.Value ).First( ).Key;
         }
     }
 }

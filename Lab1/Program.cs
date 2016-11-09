@@ -69,10 +69,19 @@ namespace Lab1
             GetData( out data, out classes, out test, out testAns );
             
             //var classifier = new KNearestClassifier( 1, data, classes );
-            var classifier = new KWeightedNearestClassifier( 10,
-                                                             KWeightedNearestClassifier.LinearWeight( 10 ), 
-                                                             data, 
-                                                             classes );
+            // var classifier = new KWeightedNearestClassifier( 10,
+            //                                                  KWeightedNearestClassifier.LinearWeight( 10 ), 
+            //                                                  data, 
+            //                                                  classes );
+            // var classifier = new ParzenWindowClassifier( ParzenWindowClassifier.GaussKernel,
+            //                                              0.35,
+            //                                              data,
+            //                                              classes );
+
+            var classifier = new AdaptiveParzenClassifier( ParzenWindowClassifier.EpanechnikovKernel,
+                                                           0,
+                                                           data,
+                                                           classes );
 
             var ans = classifier.Classify( test );
 

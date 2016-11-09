@@ -6,8 +6,8 @@ namespace Lab1
 {
     public abstract class MetricClassifier
     {
-        private Vector[] train;
-        private string[] answers;
+        protected Vector[] train;
+        protected string[] answers;
 
         protected abstract double CalcNeighbourWeight( Vector u, Vector neighbour, int neighbourIndex );
 

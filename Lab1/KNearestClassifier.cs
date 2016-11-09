@@ -9,6 +9,11 @@ namespace Lab1
             this.k = k;
         }
 
+        public override string ToString( )
+        {
+            return nameof( KNearestClassifier );
+        }
+
         protected override double CalcNeighbourWeight( Vector u, 
                                                        Vector neighbour, 
                                                        int neighbourIndex )

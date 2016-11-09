@@ -18,6 +18,11 @@ namespace Lab1
             kernelFunc = kernel;
         }
 
+        public override string ToString( )
+        {
+            return nameof( AdaptiveParzenClassifier );
+        }
+
         protected override double CalcNeighbourWeight( Vector u, Vector neighbour, int neighbourIndex )
         {
             var sourceVec = train.OrderBy( x => Euclid.Dist( u, x ) ).ElementAt( hSource );

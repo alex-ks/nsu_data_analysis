@@ -1,5 +1,3 @@
-using System;
-
 namespace Lab1
 {
     public struct Vector

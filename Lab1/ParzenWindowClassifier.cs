@@ -21,6 +21,11 @@ namespace Lab1
             return kernelFunc( Euclid.Dist( u, neighbour ) / h );
         }
 
+        public override string ToString( )
+        {
+            return nameof( ParzenWindowClassifier );
+        }
+
         public static readonly Func<double, double> GaussKernel = 
             x => 1.0 / Math.Sqrt( 2 * Math.PI ) * Math.Exp( -0.5 * x * x );
 

@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 
 namespace Lab1
 {
@@ -43,6 +42,11 @@ namespace Lab1
         {
             // Because we maximize weight of class, nearest object must have the biggest weight 
             return ( u, v, i ) => 1.0 / Euclid.Dist( u, v );
+        }
+
+        public override string ToString( )
+        {
+            return nameof( KWeightedNearestClassifier );
         }
     }
 }

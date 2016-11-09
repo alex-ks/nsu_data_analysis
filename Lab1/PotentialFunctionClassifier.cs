@@ -1,36 +1,13 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace Lab1
 {
     public class PotentialFunctionClassifier : MetricClassifier
     {
-        // struct Quant
-        // {
-        //     public Vector Values { get; }
-        //     public double Width { get; }
-        //     public double Charge { get; }
-        //     public int Index { get; }
-
-        //     public Quant( Vector values, double width, double charge, int index )
-        //     {
-        //         Values = values;
-        //         Width = width;
-        //         Charge = charge;
-        //         Index = index;
-        //     }
-        // }
-
         private double[] charges;
         private double[] widths;
         private double divideConst;
-
-        // private IEnumerable<Quant> GetQuants( )
-        // {
-        //     for ( int i = 0; i < train.Length; ++i )
-        //     { yield return new Quant( train[i], widths[i], charges[i], i ); }
-        // }
 
         public PotentialFunctionClassifier( double learningPrecision,
                                             Vector[] train, 
@@ -81,6 +58,11 @@ namespace Lab1
             var dist = Euclid.Dist( u, neighbour ) / widths[indexOrder[neighbourIndex]];
 
             return charges[indexOrder[neighbourIndex]] * PotentialFunction( dist );
+        }
+
+        public override string ToString( )
+        {
+            return nameof( PotentialFunctionClassifier );
         }
     }
 }

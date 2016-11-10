@@ -24,18 +24,14 @@ namespace Lab1
 
             int errorCount;
             int learningErrorLimit = ( int )( learningPrecision * train.Length );
+            int i = 0;
 
             do
             {
-                errorCount = 0;
-                for ( int i = 0; i < train.Length; ++i )
-                {
-                    if ( Classify( train[i] ) != answers[i] )
-                    {
-                        ++charges[i];
-                        ++errorCount;
-                    }
-                }
+                if ( Classify( train[i] ) != answers[i] )
+                { ++charges[i]; }
+                i = ( i + 1 ) % train.Length;
+                errorCount = train.Select( ( x, j ) => Classify( x ) == answers[j] ? 0 : 1 ).Sum( );
             }
             while ( errorCount > learningErrorLimit );
         }

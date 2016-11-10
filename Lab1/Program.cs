@@ -159,7 +159,7 @@ namespace Lab1
                                               2,
                                               data,
                                               classes ),
-                new PotentialFunctionClassifier( 0.01,
+                new PotentialFunctionClassifier( 0.05,
                                                  data,
                                                  classes,
                                                  data.Select( x => 0.35 ).ToArray( ) )

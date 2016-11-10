@@ -23,9 +23,18 @@ namespace Lab1
             return nameof( AdaptiveParzenClassifier );
         }
 
+        // It's assumed that there is no zero-vector in sample
+        private Vector cachedU;
+        private Vector sourceVec;
+
         protected override double CalcNeighbourWeight( Vector u, Vector neighbour, int neighbourIndex )
         {
-            var sourceVec = train.OrderBy( x => Euclid.Dist( u, x ) ).ElementAt( hSource );
+            if ( u != cachedU )
+            {
+                sourceVec = train.OrderBy( x => Euclid.Dist( u, x ) ).ElementAt( hSource );
+                cachedU = u; 
+            }
+
             double h = Euclid.Dist( u, sourceVec );
             return kernelFunc( Euclid.Dist( u, neighbour ) / h );
         }

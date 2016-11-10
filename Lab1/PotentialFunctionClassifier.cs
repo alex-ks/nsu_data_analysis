@@ -40,6 +40,7 @@ namespace Lab1
             while ( errorCount > learningErrorLimit );
         }
 
+        // It's assumed that there is no zero-vector in sample
         private Vector cachedU;
         private int[] indexOrder;
 
